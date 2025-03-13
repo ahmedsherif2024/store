@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:task_app/bloc/cart/cart_bloc.dart';
+import 'package:task_app/bloc/cart/cart_event.dart';
 import 'package:task_app/models/product_model.dart';
 import 'package:task_app/widget/app_images.dart';
 import 'package:task_app/widget/custom_page_product.dart';
@@ -77,16 +80,14 @@ class ProductDetailsScreen extends StatelessWidget {
                     Center(
                       child: ElevatedButton.icon(
                         onPressed: () {
+                          context.read<CartBloc>().add(AddToCart(product));
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: const Text("Added to cart"),
+                              content: Text("${product.name} added to cart"),
                               duration: const Duration(seconds: 2),
-                              action: SnackBarAction(
-                                label: "Undo",
-                                onPressed: () {},
-                              ),
                             ),
                           );
+
                         },
                         icon: const Icon(Icons.shopping_cart),
                         label: const Text("Add to Cart"),
@@ -111,5 +112,8 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 }
+
+
+
 
 
